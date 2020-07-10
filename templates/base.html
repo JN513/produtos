@@ -4,7 +4,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <title>home</title>
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        html{
+            width: 100%;
+            height: 100%;
+        }
+
+        nav{
+            padding-top: 20px;
+            width: 100%;
+            height: 70px;
+            justify-content: space-between;
+            background: linear-gradient(180deg, #06043C, #06047D, #0604EA);
+        }
+        nav ul{
+            display: flex;
+            list-style: none;
+            position: relative;
+        }
+        
+        nav ul li{
+            width: 150px;
+        }
+        nav ul li a{
+            text-decoration: none;
+            color: white;
+            display: block;
+            padding: 10px 10px;
+            text-align: center;
+        }
+        nav ul li a:hover{
+            text-decoration: underline;
+        }
+
+        body{
+            align-items: center;
+        }
+
+        #dash{
+            text-align: center;
+            height: 40px;
+            background-color: #dcdcdc;
+            padding-top: 10px;
+            padding-bottom: 15px;
+            border: 2px solid #ccc;
+        }
+
+        .maindash{
+            padding: 20px;
+            width: 80%;
+            border: 4px solid #ccc;
+            background-color: #F0F8FF;
+            margin: 0 auto;
+            height: auto;
+        }
+
+        .maincriapro{
+            padding: 20px;
+            width: 70%;
+            border: 4px solid #ccc;
+            background-color: #F0F8FF;
+            margin: 0 auto;
+            height: auto;
+        }
+
+        form {/*formunalrio*/
+            padding: 15px;
+            padding-top: 40px;
+            padding-bottom: 60px;
+            padding-right: 20px;
+        }
+
+        .nomeantes {/*labls antes dos ids*/
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .campo {/*input*/
+            background: #FFFFFF;
+            border: 2px solid rgba(0, 0, 0, 0.25);
+            padding: 7px;
+            width: 100%;
+        }
+        footer{
+            background: linear-gradient(180deg, #06043C, #06047D, #0604EA);
+            height: 15vh;	
+            width: 100%; 
+            border-top: 4px solid #ccc;
+            text-align: center;
+            color: white;
+            padding-top: 70px;
+        }      
+        footer p{
+            font-size: 1.0em;
+            font-weight: 500;
+        }
+    </style>
 </head>
 <body>
     {% block content %}

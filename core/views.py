@@ -60,7 +60,12 @@ def logout(request):
 def dashboard(request):
     if request.user.is_authenticated:
         produtos = Produto.objects.order_by('datadecriacao')
-        return render(request ,'dashboard.html')
+
+        dados = {
+            'produtos':produtos,
+        }
+
+        return render(request ,'dashboard.html',dados)
     else:
         return redirect('index')
 
@@ -79,10 +84,10 @@ def cria_produto(request):
         quantidade = request.POST['quantidade']
         datafa = request.POST['datadefabri']
         categoria2 = request.POST['categoria']
-        tipos = request.POST['tipo']
+        tipo = request.POST['tipo']
         user = get_object_or_404(User, pk=request.user.id)
         
-        produto = Produto(nome=nome, descricao=descricao,preco=preco,quantidade=quantidade,datadefabricacao=datafa,criador=user,categoria_id=categoria2)
+        produto = Produto(nome=nome, descricao=descricao,preco=preco,quantidade=quantidade,datadefabricacao=datafa,criador=user,categoria_id=categoria2, tipo_id=tipo)
         produto.save()
         return redirect('dashboard')
 
@@ -104,6 +109,7 @@ def cria_categoria(request):
         return redirect('dashboard')
     
     return render(request,'criacategorias.html')
+
 
 def cria_tipo(request):
     categorias = Categoria.objects.order_by('nome')
@@ -127,3 +133,6 @@ def cria_tipo(request):
         return redirect('dashboard')
 
     return render(request,'criatipo.html',dados)
+
+def muda_estoque(request):
+    return render(request, 'mudaestoque.html')

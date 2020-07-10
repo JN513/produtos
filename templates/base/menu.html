@@ -1,10 +1,8 @@
 {% load static %}
 {% block content %}
 
-<div>
-    <header>
 
-    </header>
+<div>
 
     <nav>
         <ul>
@@ -21,8 +19,8 @@
 
             {% endif %}
             {% if user.is_staff %}
-            <li><a href="{% url 'cria_produtos'%}">Criar Categorias</a></li>
-            <li><a href="{% url 'cria_produtos'%}">Criar Tipos</a></li>
+            <li><a href="{% url 'cria_categoria'%}">Criar Categorias</a></li>
+            <li><a href="{% url 'cria_tipo'%}">Criar Tipos</a></li>
             {% endif %}
         </ul>
     </nav>
