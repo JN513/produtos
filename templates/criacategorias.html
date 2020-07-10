@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% include 'base/menu.html' %}
+
+<form action="{% url 'cria_categoria' %}" method="post" enctype="multipart/form-data"> {% csrf_token %}
+    <div>
+        <label for="nome">Nome da categoria:</label>
+        <input type="text" name="nome" required>
+    </div>
+    <div>
+        <button type="submit">Criar nova categoria</button>
+    </div>
+</form>
+
+{% include 'base/footer.html' %}
+
+{% endblock %}

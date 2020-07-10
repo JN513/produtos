@@ -8,9 +8,22 @@
 
     <nav>
         <ul>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'index'%}">Home</a></li>
+            <li><a href="{% url 'cria_produtos'%}">Criar Produtos</a></li>
+            <li><a href="{% url 'dashboard'%}">Dashbaord</a></li>
+            <li><a href="{% url 'logout'%}">Logout</a></li>
+            {% else %}
+
             <li><a href="{% url 'index'%}">Home</a></li>
             <li><a href="{% url 'login'%}">Login</a></li>
             <li><a href="{% url 'cadastro'%}">Cadastro</a></li>
+
+            {% endif %}
+            {% if user.is_staff %}
+            <li><a href="{% url 'cria_produtos'%}">Criar Categorias</a></li>
+            <li><a href="{% url 'cria_produtos'%}">Criar Tipos</a></li>
+            {% endif %}
         </ul>
     </nav>
 </div>

@@ -1,0 +1,23 @@
+{% load static %}
+{% block content %}
+
+{% include 'base/menu.html' %}
+
+<form action="{% url 'cria_tipo' %}" method="post" enctype="multipart/form-data"> {% csrf_token %}
+    <div>
+        <label for="nome">Nome do tipo:</label>
+        <input type="text" name="nome" required>
+    </div>
+    <select name="categoria" required>
+        {% for categoria in categorias %}
+            <option value="{{categoria.id}}">{{categoria.nome}}</option>
+        {% endfor %}
+    </select>
+    <div>
+        <button type="submit">Criar novo tipo</button>
+    </div>
+</form>
+
+{% include 'base/footer.html' %}
+
+{% endblock %}

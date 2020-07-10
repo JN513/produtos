@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% include 'base/menu.html' %}
+
+<form action="{% url 'cria_produtos' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+    <div>
+        <label for="nomeproduto">Nome do produto: </label>
+        <input type="text" name="nomeproduto" placeholder="Ex. Chocolate" required>
+    </div>
+    <div>
+        <label for="descricao">Descrição: </label>
+        <textarea name="descricao" id="" cols="30" rows="10" required></textarea>
+    </div>
+    <div>
+        <label for="preco">Preço: </label>
+        <input type="number" name="preco" placeholder="Ex. R$ 15.00 " required>
+    </div>
+    <div>
+        <label for="quantidade">Quantidade: </label>
+        <input type="number" name="quantidade" placeholder="Ex. 20" required>
+    </div>
+    <div>
+        <label for="datadefabri">Data de Fabricação</label>
+        <input type="date" name="datadefabri" required>
+    </div>
+    <div>
+        <label for="categoria">Categoria: </label>
+        <select name="categoria" required>
+            {% for categoria in categorias %}
+                <option value="{{categoria.id}}">{{categoria.nome}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <select name="tipo" multiple required">
+            {% for tipo in tipos %}
+                <option value="{{tipo.id}}">{{tipo.nome}}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div>
+        <button type="submit">Criar novo produto</button>
+    </div>
+</form>
+
+{% include 'base/footer.html' %}
+
+{% endblock %}
