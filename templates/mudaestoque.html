@@ -5,7 +5,7 @@
 {% include 'base/menu.html' %}
 
 <div>
-    <form action="{% url 'muda_estoque' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+    <form action="{% url 'muda_estoque' %}" method="POST" enctype="application/json"> {% csrf_token %}
 
         <div>
             <label for="produto" class="nomeantes">Selecione o produto a ser auterado</label>

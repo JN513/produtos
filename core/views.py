@@ -156,13 +156,10 @@ def muda_estoque(request):
 
         if request.method == 'POST':
             produto = request.POST['produto']
-            qtd = request.POST['qtd']
-            int(qtd)
+            qtd = int(request.POST['qtd'])
             qtdv = Produto.objects.filter(pk=produto).values_list('quantidade',flat=True).get()
-            x = qtdv[{0}]
-            qtdn = x+qtd
-            print(qtdv)
-            Produto.objects.filter(pk=produto).update(quantidade=30)
+            qtdn = qtdv+qtd
+            Produto.objects.filter(pk=produto).update(quantidade=qtdn)
         return render(request, 'mudaestoque.html',dados)
     else:
         return redirect('login')
