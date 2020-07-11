@@ -9,6 +9,7 @@
             {% if user.is_authenticated %}
             <li><a href="{% url 'index'%}">Home</a></li>
             <li><a href="{% url 'cria_produtos'%}">Criar Produtos</a></li>
+            <li><a href="{% url 'muda_estoque' %}">Alterar quantidade de produto</a></li>
             <li><a href="{% url 'dashboard'%}">Dashbaord</a></li>
             <li><a href="{% url 'logout'%}">Logout</a></li>
             {% else %}

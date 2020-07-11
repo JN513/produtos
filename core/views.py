@@ -49,6 +49,8 @@ def login(request):
             user = auth.authenticate(request, username=nome, password=password)
             if user is not None:
                 auth.login(request, user)
+                print('foi')
+                
                 return redirect('dashboard')
 
     return render(request ,'login.html')
@@ -67,72 +69,100 @@ def dashboard(request):
 
         return render(request ,'dashboard.html',dados)
     else:
-        return redirect('index')
+        return redirect('login')
 
 def cria_produto(request):
-    categorias = Categoria.objects.order_by('nome')
-    tipos = Tipo.objects.order_by('nome')
-    dados = {
-        'categorias': categorias,
-        'tipos':tipos,
-    }
+    if request.user.is_authenticated:
+        categorias = Categoria.objects.order_by('nome')
+        tipos = Tipo.objects.order_by('nome')
+        dados = {
+            'categorias': categorias,
+            'tipos':tipos,
+        }
 
-    if request.method == 'POST':
-        nome = request.POST['nomeproduto']
-        descricao = request.POST['descricao']
-        preco = request.POST['preco']
-        quantidade = request.POST['quantidade']
-        datafa = request.POST['datadefabri']
-        categoria2 = request.POST['categoria']
-        tipo = request.POST['tipo']
-        user = get_object_or_404(User, pk=request.user.id)
-        
-        produto = Produto(nome=nome, descricao=descricao,preco=preco,quantidade=quantidade,datadefabricacao=datafa,criador=user,categoria_id=categoria2, tipo_id=tipo)
-        produto.save()
-        return redirect('dashboard')
+        if request.method == 'POST':
+            nome = request.POST['nomeproduto']
+            descricao = request.POST['descricao']
+            preco = request.POST['preco']
+            quantidade = request.POST['quantidade']
+            datafa = request.POST['datadefabri']
+            categoria2 = request.POST['categoria']
+            tipo = request.POST['tipo']
+            user = get_object_or_404(User, pk=request.user.id)
+            
+            produto = Produto(nome=nome, descricao=descricao,preco=preco,quantidade=quantidade,datadefabricacao=datafa,criador=user,categoria_id=categoria2, tipo_id=tipo)
+            produto.save()
+            return redirect('dashboard')
 
-    return render(request, 'criaproduto.html', dados)
+        return render(request, 'criaproduto.html', dados)
+    else:
+        return redirect('login')
 
 def cria_categoria(request):
 
-    if request.method == 'POST':
-        nome = request.POST['nome']
-        if nome == "":
-            print("O campo nome não pode ficar em branco")
-            return redirect('cria_categoria')
-        if Categoria.objects.filter(nome=nome).exists():
-            print('A categoria já existe')
-            return redirect('cria_categoria')
-        novacategoria = Categoria(nome=nome)
-        novacategoria.save()
-        print('Categoria cadastrada com sucesso')  
-        return redirect('dashboard')
-    
-    return render(request,'criacategorias.html')
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            nome = request.POST['nome']
+            if nome == "":
+                print("O campo nome não pode ficar em branco")
+                return redirect('cria_categoria')
+            if Categoria.objects.filter(nome=nome).exists():
+                print('A categoria já existe')
+                return redirect('cria_categoria')
+            novacategoria = Categoria(nome=nome)
+            novacategoria.save()
+            print('Categoria cadastrada com sucesso')  
+            return redirect('dashboard')
+        
+        return render(request,'criacategorias.html')
+    else:
+        return redirect('login')
 
 
 def cria_tipo(request):
-    categorias = Categoria.objects.order_by('nome')
-    dados = {
-        'categorias': categorias,
-    }
+    if request.user.is_authenticated:
+        categorias = Categoria.objects.order_by('nome')
+        dados = {
+            'categorias': categorias,
+        }
 
-    if request.method == 'POST':
-        nome = request.POST['nome']
-        categoria2 = request.POST['categoria']
-        print(categoria2)
-        if nome == "":
-            print("O campo nome não pode ficar em branco")
-            return redirect('cria_tipo')
-        if Tipo.objects.filter(nome=nome).exists():
-            print('Tipo já existente')
-            return redirect('cria_tipo')
-        novotipo = Tipo(nome=nome, categoriadotipo_id=categoria2)
-        novotipo.save()
-        print('Categoria cadastrada com sucesso')  
-        return redirect('dashboard')
+        if request.method == 'POST':
+            nome = request.POST['nome']
+            categoria2 = request.POST['categoria']
+            print(categoria2)
+            if nome == "":
+                print("O campo nome não pode ficar em branco")
+                return redirect('cria_tipo')
+            if Tipo.objects.filter(nome=nome).exists():
+                print('Tipo já existente')
+                return redirect('cria_tipo')
+            novotipo = Tipo(nome=nome, categoriadotipo_id=categoria2)
+            novotipo.save()
+            print('Categoria cadastrada com sucesso')  
+            return redirect('dashboard')
 
-    return render(request,'criatipo.html',dados)
+        return render(request,'criatipo.html',dados)
+    else:
+        return redirect('login')
 
 def muda_estoque(request):
-    return render(request, 'mudaestoque.html')
+    if request.user.is_authenticated:
+        user = request.user.id
+        produtos = Produto.objects.order_by('datadecriacao').filter(criador_id=user)
+
+        dados = {
+            'produtos': produtos,
+        }
+
+        if request.method == 'POST':
+            produto = request.POST['produto']
+            qtd = request.POST['qtd']
+            int(qtd)
+            qtdv = Produto.objects.filter(pk=produto).values_list('quantidade',flat=True).get()
+            x = qtdv[{0}]
+            qtdn = x+qtd
+            print(qtdv)
+            Produto.objects.filter(pk=produto).update(quantidade=30)
+        return render(request, 'mudaestoque.html',dados)
+    else:
+        return redirect('login')

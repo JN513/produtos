@@ -27,7 +27,7 @@
             <input class="campo" type="date" name="datadefabri" required>
         </div>
         <div>
-            <label for="categoria">Categoria: </label>
+            <label for="categoria" class="nomeantes">Categoria: </label>
             <select class="campo" name="categoria" required>
                 {% for categoria in categorias %}
                     <option value="{{categoria.id}}">{{categoria.nome}}</option>
