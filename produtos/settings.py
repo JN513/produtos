@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    #'channels',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -81,15 +81,8 @@ WSGI_APPLICATION = 'produtos.wsgi.application'
 
 DATABASES = {
     'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'db',
-        # 'NAME': os.path.join(BASE_DIR, 'mydb'),
-        'USER': 'julio',
-        'PASSWORD': '15052005',
-        'HOST': '127.0.0.1',
-        'PORT': '', # 8000 is default
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -143,5 +136,14 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR+ '/static')
 ]
 
-#ROOT_URLCONF = 'produtos.urls'
-#ASGI_APPLICATION = "produtos.routing.application"
+ASGI_APPLICATION = "produtos.routing.application"
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'asgi_redis.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('localhost', 6379)],
+        },
+        'ROUTING': 'example_channels.routing.channel_routing',
+    }
+}

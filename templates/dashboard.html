@@ -4,6 +4,20 @@
 
 {% include 'base/menu.html' %}
 
+{% block script %}
+  <script>
+    var socket = new WebSocket('ws://' + window.location.host + '/users/');
+
+    socket.onopen = function open() {
+      console.log('WebSockets connection created.');
+    };
+
+    if (socket.readyState == WebSocket.OPEN) {
+      socket.onopen();
+    }
+  </script>
+{% endblock script %}
+
 <div id="dash">
     <h1>Olá {{ user.username }}</h1>
 </div>
