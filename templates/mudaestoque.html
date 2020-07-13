@@ -1,15 +1,11 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-
-{% include 'base/menu.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %} {% include 'base/menu.html' %}
 
 <div>
-    <form action="{% url 'muda_estoque' %}" method="POST" enctype="application/json"> {% csrf_token %}
+    <form action="{% url 'muda_estoque' %}" method="POST" enctype="application/json" id="formmu"> {% csrf_token %}
 
         <div>
             <label for="produto" class="nomeantes">Selecione o produto a ser auterado</label>
-            <select class="campo" name="produto" required>
+            <select class="campo" name="produto" required id="proid">
                 {% for produto in produtos %}
                     <option value="{{produto.id}}">{{produto.nome}}</option>
                 {% endfor %}
@@ -17,7 +13,7 @@
         </div>
         <div>
             <label for="qtd" class="nomeantes">Quantidade a adicionar: </label>
-            <input type="number" class="campo" name="qtd" required>
+            <input type="number" class="campo" name="qtd" required id="qtd">
         </div>
 
         <div>
@@ -26,6 +22,20 @@
     </form>
 </div>
 
-{% include 'base/footer.html' %}
+<script>
+    $(function() {
+        var ws_scheme = window.location.protocol == "https: " ? "wss " : "ws ";
+        var chat_socket = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + window.location.pathname);
 
-{% endblock %}
+        $('#formmu').on('submit', function(event) {
+            var message = {
+                produtoid: $('#proid').val(),
+                qtd: $('#qtd').val(),
+            }
+            chat_socket.send(JSON.stringify(message));
+            return false;
+        });
+    });
+</script>
+
+{% include 'base/footer.html' %} {% endblock %}

@@ -32,16 +32,14 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'channels',
+    'core',
+    'rest_framework',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',
-    'rest_framework',
-    #'django_elasticsearch_dsl',
-    'django_elasticsearch_dsl_drf',
 ]
 
 MIDDLEWARE = [
@@ -136,7 +134,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR+ '/static')
 ]
 
-ASGI_APPLICATION = "produtos.routing.application"
+ASGI_APPLICATION = 'produtos.routing.application'
 
 CHANNEL_LAYERS = {
     'default': {

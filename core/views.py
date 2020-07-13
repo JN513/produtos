@@ -99,51 +99,56 @@ def cria_produto(request):
         return redirect('login')
 
 def cria_categoria(request):
-
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            nome = request.POST['nome']
-            if nome == "":
-                print("O campo nome não pode ficar em branco")
-                return redirect('cria_categoria')
-            if Categoria.objects.filter(nome=nome).exists():
-                print('A categoria já existe')
-                return redirect('cria_categoria')
-            novacategoria = Categoria(nome=nome)
-            novacategoria.save()
-            print('Categoria cadastrada com sucesso')  
-            return redirect('dashboard')
-        
-        return render(request,'criacategorias.html')
+    if request.user.is_staff:
+        if request.user.is_authenticated:
+            if request.method == 'POST':
+                nome = request.POST['nome']
+                if nome == "":
+                    print("O campo nome não pode ficar em branco")
+                    return redirect('cria_categoria')
+                if Categoria.objects.filter(nome=nome).exists():
+                    print('A categoria já existe')
+                    return redirect('cria_categoria')
+                novacategoria = Categoria(nome=nome)
+                novacategoria.save()
+                print('Categoria cadastrada com sucesso')  
+                return redirect('dashboard')
+            
+            return render(request,'criacategorias.html')
+        else:
+            return redirect('login')
     else:
-        return redirect('login')
+            return redirect('dashboard')
 
 
 def cria_tipo(request):
-    if request.user.is_authenticated:
-        categorias = Categoria.objects.order_by('nome')
-        dados = {
-            'categorias': categorias,
-        }
+    if request.user.is_staff:
+        if request.user.is_authenticated:
+            categorias = Categoria.objects.order_by('nome')
+            dados = {
+                'categorias': categorias,
+            }
 
-        if request.method == 'POST':
-            nome = request.POST['nome']
-            categoria2 = request.POST['categoria']
-            print(categoria2)
-            if nome == "":
-                print("O campo nome não pode ficar em branco")
-                return redirect('cria_tipo')
-            if Tipo.objects.filter(nome=nome).exists():
-                print('Tipo já existente')
-                return redirect('cria_tipo')
-            novotipo = Tipo(nome=nome, categoriadotipo_id=categoria2)
-            novotipo.save()
-            print('Categoria cadastrada com sucesso')  
-            return redirect('dashboard')
+            if request.method == 'POST':
+                nome = request.POST['nome']
+                categoria2 = request.POST['categoria']
+                print(categoria2)
+                if nome == "":
+                    print("O campo nome não pode ficar em branco")
+                    return redirect('cria_tipo')
+                if Tipo.objects.filter(nome=nome).exists():
+                    print('Tipo já existente')
+                    return redirect('cria_tipo')
+                novotipo = Tipo(nome=nome, categoriadotipo_id=categoria2)
+                novotipo.save()
+                print('Categoria cadastrada com sucesso')  
+                return redirect('dashboard')
 
-        return render(request,'criatipo.html',dados)
+            return render(request,'criatipo.html',dados)
+        else:
+            return redirect('login')
     else:
-        return redirect('login')
+            return redirect('dashboard')
 
 def muda_estoque(request):
     if request.user.is_authenticated:

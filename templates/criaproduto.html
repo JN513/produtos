@@ -1,8 +1,4 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-
-{% include 'base/menu.html' %}
+{% extends 'base.html' %} {% load static %} {% block content %} {% include 'base/menu.html' %}
 
 <div class="maincriapro">
     <form action="{% url 'cria_produtos' %}" method="POST" enctype="multipart/form-data"> {% csrf_token %}
@@ -16,7 +12,7 @@
         </div>
         <div>
             <label class="nomeantes" for="preco">Preço: </label>
-            <input class="campo"s type="number" name="preco" placeholder="Ex. R$ 15.00 " required>
+            <input class="campo" s type="number" name="preco" placeholder="Ex. R$ 15.00 " required>
         </div>
         <div>
             <label class="nomeantes" for="quantidade">Quantidade: </label>
@@ -36,18 +32,34 @@
         </div>
         <div>
             <label class="nomeantes" for="tipo">Tipo:</label>
-            <select class="campo" name="tipo" required">
+            <select class="campo" name="tipo" required ">
                 {% for tipo in tipos %}
-                    <option value="{{tipo.id}}">{{tipo.nome}}</option>
+                    <option value="{{tipo.id}} ">{{tipo.nome}}</option>
                 {% endfor %}
             </select>
         </div>
     
         <div>
-            <button type="submit">Criar novo produto</button>
+            <button type="submit ">Criar novo produto</button>
         </div>
     </form>
 </div>
+
+<script>
+
+var ws_scheme = window.location.protocol == "https: " ? "wss " : "ws ";
+var chat_socket = new ReconnectingWebSocket(ws_scheme + '://' + window.location.host + window.location.pathname);
+
+$('#chatform').on('submit', function(event) {
+    var message = {
+        handle: $('#handle').val(),
+        message: $('#message').val(),
+    }
+    chat_socket.send(JSON.stringify(message));
+    return false;
+});
+
+</script>
 
 {% include 'base/footer.html' %}
 
