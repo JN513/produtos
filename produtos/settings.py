@@ -133,15 +133,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR+ '/static')
 ]
-
-ASGI_APPLICATION = 'produtos.routing.application'
-
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'asgi_redis.RedisChannelLayer',
-        'CONFIG': {
-            'hosts': [('localhost', 6379)],
-        },
-        'ROUTING': 'example_channels.routing.channel_routing',
-    }
-}
