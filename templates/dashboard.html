@@ -22,20 +22,7 @@
     <h1>Olá {{ user.username }}</h1>
 </div>
 
-<div class="maindash">
-    {% for produto in produtos %}
-        <div>
-            <h3>Nome do produto: {{produto.nome}}</h3>
-            <p>Descrição: {{produto.descricao}}</p>
-            <p>Preço: R${{produto.preco}},00</p>
-            <p>Quantidade: {{produto.quantidade}}</p>
-            <p>Data de fabricação: {{produto.datadefabricacao}}</p>
-            <p>Criado por: {{produto.criador}}</p>
-            <p>Categoria: {{produto.categoria}}</p>
-            <p>Tipo de produto: {{produto.tipo}}</p>
-        </div><br><br><br>
-    {% endfor %}
-</div>
+{% include 'search.html' %}
 
 {% include 'base/footer.html' %}
 

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.contrib.auth.models import User
 from .models import Categoria, Tipo, Produto
+from core.documents import ProdutoIndex
 
 def index(request):
     return render(request ,'index.html')
@@ -168,3 +169,14 @@ def muda_estoque(request):
         return render(request, 'mudaestoque.html',dados)
     else:
         return redirect('login')
+
+def search(request):
+    
+    q = request.GET.get('q')
+
+    if q:
+        produtos = ProdutoIndex.search().query("match", nome=q)
+    else:
+        produtos = ''
+
+    return render(request, 'search.html', {'produtos':produtos})

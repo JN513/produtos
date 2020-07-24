@@ -11,4 +11,5 @@ urlpatterns = [
     path('cria_categoria', views.cria_categoria, name='cria_categoria'),
     path('cria_tipo', views.cria_tipo, name='cria_tipo'),
     path('muda_estoque', views.muda_estoque, name='muda_estoque'),
+    path('search/', views.search, name='search')
 ]
