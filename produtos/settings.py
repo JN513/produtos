@@ -137,14 +137,6 @@ STATICFILES_DIRS = [
 
 ELASTICSEARCH_DSL = {
     'default': {
-        'hosts': ['http://localhost:9200'],
+        'hosts': 'http://localhost:9200'
     }
 }
-
-ES_INDEXES = {
-    'default': [
-        ('produtos', 'core.search.ProdutoIndex'),
-    ]
-}
-
-ES_DEFAULT_BATCH_SIZE = 1000

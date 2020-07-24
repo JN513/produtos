@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime 
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=50, db_index=True)
@@ -16,6 +17,7 @@ class Tipo(models.Model):
 
     def __str__(self):
         return self.nome
+        
 class Produto(models.Model):
     nome = models.CharField(max_length=50, db_index=True)
     descricao = models.TextField()
@@ -26,6 +28,12 @@ class Produto(models.Model):
     criador = models.ForeignKey(User , on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria , on_delete=models.CASCADE)
     tipo = models.ForeignKey(Tipo, on_delete=models.CASCADE)
+
+    slug = models.SlugField(default='',blank=True)
+
+    def save(self):
+        self.slug = slugify(self.nome)
+        super(Produto, self).save()
 
     def __str__(self):
         return self.nome
