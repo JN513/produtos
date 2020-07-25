@@ -175,8 +175,13 @@ def search(request):
     q = request.GET.get('q')
 
     if q:
-        produtos = ProdutoIndex.search().query("match", nome=q)
+        produtos = ProdutoIndex.search().query("match", q)
     else:
         produtos = ''
 
-    return render(request, 'search.html', {'produtos':produtos})
+    dados ={
+        'produtos':produtos,
+        'nome':'search',
+    }
+
+    return render(request, 'search.html', dados)
