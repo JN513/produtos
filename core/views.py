@@ -175,7 +175,7 @@ def search(request):
     q = request.GET.get('q')
 
     if q:
-        produtos = ProdutoIndex.search().query("match", q)
+        produtos = ProdutoIndex.search().query("match", nome=q)
     else:
         produtos = ''
 
