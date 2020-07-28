@@ -5,14 +5,14 @@ from elasticsearch_dsl import analyzer
 produtos = Index('produtos')
 categorias = Index('categorias')
 tipos = Index('tipos')
-
+"""
 html_strip = analyzer(
     'html_strip',
     tokenizer="standard",
-    filter=["lowercase", "stop", "snowball"],
+    filter=["standard","lowercase", "stop", "snowball"],
     char_filter=["html_strip"]
 )
-
+"""
 @produtos.doc_type
 class ProdutoIndex(Document):
     class Django:
