@@ -1,1 +1,1 @@
-# Sistea de produtos com Python-Django
+# Sistema de produtos com Python-Django
