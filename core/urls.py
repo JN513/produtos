@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
@@ -11,5 +13,8 @@ urlpatterns = [
     path('cria_categoria', views.cria_categoria, name='cria_categoria'),
     path('cria_tipo', views.cria_tipo, name='cria_tipo'),
     path('muda_estoque', views.muda_estoque, name='muda_estoque'),
-    path('search/', views.search, name='search')
+    #path('search/', views.search, name='search'),
+    path('confirm/<str:token>', views.confirma_email, name="confirma")
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

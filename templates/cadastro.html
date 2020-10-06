@@ -7,6 +7,8 @@
 
     <h2>Criar conta</h2>
 
+    {% include 'base/alertas.html' %}
+
     <form action="{% url 'cadastro' %}" method="POST">{% csrf_token %}
         <div>
             <label for="nome_receita"><b>Nome completo</b></label>

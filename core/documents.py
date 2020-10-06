@@ -1,3 +1,4 @@
+"""
 from django_elasticsearch_dsl import Document, Index
 from core.models import Produto, Categoria, Tipo
 from elasticsearch_dsl import analyzer
@@ -21,3 +22,4 @@ class ProdutoIndex(Document):
         fields = [
             'id','nome','descricao','slug'
         ]
+"""

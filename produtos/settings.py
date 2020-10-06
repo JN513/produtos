@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,13 +27,15 @@ SECRET_KEY = 'a$c16&im#8psbw9r1u9rmglxvfgpu@keys8xem&@$+$0pc8@z3'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '192.168.0.107'
+    '192.168.0.107',
+    'localhost',
 ]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrap4',
     'core',
     'rest_framework',
     'django.contrib.admin',
@@ -41,8 +44,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_elasticsearch_dsl',
-    'django_elasticsearch_dsl_drf',
 ]
 
 MIDDLEWARE = [
@@ -137,8 +138,20 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR+ '/static')
 ]
 
+MEDIA_ROOT=os.path.join(BASE_DIR,"data")
+MEDIA_URL='/data/'
+"""
 ELASTICSEARCH_DSL = {
     'default': {
         'hosts': 'http://localhost:9200'
     }
 }
+"""
+django_heroku.settings(locals())
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "jn5.guape@gmail.com"
+EMAIL_HOST_PASSWORD = "sebastiao"
