@@ -16,7 +16,7 @@ heroku==0.1.4
 idna==2.9
 Markdown==3.2.1
 psycopg2==2.8.6
-PyJWT==1.7.1
+PyJWT==2.4.0
 python-dateutil==1.5
 pytz==2020.1
 requests==2.23.0
